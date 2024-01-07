@@ -32,7 +32,7 @@ public class PersonValidator implements Validator {
             errors.rejectValue("birthYear", "", "Birth year must be less than or equal to " + Year.now().getValue());
         }
 
-        var mayBePerson = personDao.getByFio(person.getFio());
+        var mayBePerson = personDao.getByFio(person.getFullName());
         if(mayBePerson != null && !mayBePerson.getId().equals(person.getId())) {
             errors.rejectValue("fio", "", "Fio must be unique!");
         }

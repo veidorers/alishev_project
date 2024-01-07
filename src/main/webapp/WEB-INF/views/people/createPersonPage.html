@@ -9,9 +9,9 @@
 <br/>
 
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
-    <label for="fio">Enter a fio:</label>
-    <input id="fio" type="text" th:field="*{fio}"/>
-    <div style="color:red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}"></div>
+    <label for="fullName">Enter a full name:</label>
+    <input id="fullName" type="text" th:field="*{fullName}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
 
     <br/>
 

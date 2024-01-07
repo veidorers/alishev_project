@@ -7,7 +7,7 @@ public class Person {
     @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+ [A-Z]\\w+", message = "Fio must be in format: Surname Name Middle-name")
     @NotEmpty(message = "Fio must not be empty")
     @Size(min = 5, max = 300, message = "Fio size must be from 5 to 300 symbols")
-    private String fio;
+    private String fullName;
     @NotNull(message = "Birth year must not be empty")
     @Min(value = 1900, message = "Birth year must be greater than or equal to 1900")
     private Integer birthYear;
@@ -17,7 +17,7 @@ public class Person {
 
     public Person(Integer id, String fio, int birthYear) {
         this.id = id;
-        this.fio = fio;
+        this.fullName = fio;
         this.birthYear = birthYear;
     }
 
@@ -29,12 +29,12 @@ public class Person {
         this.id = id;
     }
 
-    public String getFio() {
-        return fio;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Integer getBirthYear() {
