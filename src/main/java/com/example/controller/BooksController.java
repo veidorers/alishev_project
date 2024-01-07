@@ -7,9 +7,12 @@ import com.example.util.BookValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -26,8 +29,12 @@ public class BooksController {
     }
 
     @GetMapping
-    public String getAllBooks(Model model) {
-        model.addAttribute("books", booksService.findAll());
+    public String getAllBooks(Model model,
+                              @RequestParam(value = "page", required = false) Integer page,
+                              @RequestParam(value = "books_per_page", required = false) Integer booksPerPage,
+                              @RequestParam(value = "sort_by_year", required = false) boolean sortByYear) {
+        model.addAttribute("books", booksService.findAll(page, booksPerPage, sortByYear));
+
         return "books/allBooks";
     }
 
