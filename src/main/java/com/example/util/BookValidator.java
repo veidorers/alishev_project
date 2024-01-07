@@ -1,4 +1,4 @@
-package com.example.util.util;
+package com.example.util;
 
 import com.example.model.Book;
 import org.springframework.stereotype.Component;

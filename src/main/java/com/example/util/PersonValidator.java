@@ -1,7 +1,7 @@
 package com.example.util;
 
-import com.example.dao.PersonDao;
 import com.example.model.Person;
+import com.example.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,11 +11,11 @@ import java.time.Year;
 
 @Component
 public class PersonValidator implements Validator {
-    private final PersonDao personDao;
+    private final PeopleService peopleService;
 
     @Autowired
-    public PersonValidator(PersonDao personDao) {
-        this.personDao = personDao;
+    public PersonValidator(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @Override
@@ -32,9 +32,9 @@ public class PersonValidator implements Validator {
             errors.rejectValue("birthYear", "", "Birth year must be less than or equal to " + Year.now().getValue());
         }
 
-        var mayBePerson = personDao.getByFio(person.getFullName());
+        var mayBePerson = peopleService.findByFullName(person.getFullName());
         if(mayBePerson != null && !mayBePerson.getId().equals(person.getId())) {
-            errors.rejectValue("fio", "", "Fio must be unique!");
+            errors.rejectValue("fullName", "", "Full name must be unique!");
         }
     }
 }
