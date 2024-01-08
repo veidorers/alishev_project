@@ -22,9 +22,12 @@
 <div th:if="${people}">
     <div>Book is free. Whom to assign this book?</div>
     <form th:method="PATCH" th:action="@{/books/{id}/reserve(id = ${book.getId()})}" th:object="${book}">
-        <select th:object="${book}" th:field="*{personId}">
+        <select th:object="${book}" th:field="*{owner.id}">
             <option th:each="personToChoose : ${people}" th:value="${personToChoose.getId()}" th:text="${personToChoose.getFullName()}"></option>
         </select>
+<!--        <select name="personId">-->
+<!--            <option th:each="personToChoose : ${people}" th:value="${personToChoose.getId()}" th:text="${personToChoose.getFullName()}"></option>-->
+<!--        </select>-->
         <input type="submit" value="Choose"/>
     </form>
 </div>

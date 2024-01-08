@@ -23,18 +23,19 @@ public class Book {
     @NotNull(message = "Year must not be null")
     private Integer year;
 
-    @Column(name = "person_id")
-    private Integer personId;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person owner;
 
     public Book() {
     }
 
-    public Book(Integer id, String name, String author, int year, int person_id) {
+    public Book(Integer id, String name, String author, Integer year, Person owner) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.year = year;
-        this.personId = person_id;
+        this.owner = owner;
     }
 
     public Integer getId() {
@@ -69,11 +70,11 @@ public class Book {
         this.year = year;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Person getOwner() {
+        return owner;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 }

@@ -39,8 +39,8 @@ public class BooksController {
     public String getBookById(@PathVariable("id") int id, Model model) {
         var book = booksService.findById(id);
         model.addAttribute("book", book);
-        if(book.getPersonId() != null) {
-            model.addAttribute("person", peopleService.findById(book.getPersonId()));
+        if(book.getOwner() != null) {
+            model.addAttribute("person", book.getOwner());
         } else {
             model.addAttribute("people", peopleService.findAll());
         }
@@ -78,7 +78,7 @@ public class BooksController {
         }
         booksService.update(book);
         return "redirect:/books/" + book.getId();
-    }
+    } //остановился на том, что при изменении книги теряется owner
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {

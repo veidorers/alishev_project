@@ -33,8 +33,10 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String getPersonById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", peopleService.findById(id));
-        model.addAttribute("books", booksService.findBooksByPersonId(id));
+        Person person = peopleService.findById(id);
+
+        model.addAttribute("person", person);
+        model.addAttribute("books", booksService.findByOwner(person));
         return "people/onePerson";
     }
 

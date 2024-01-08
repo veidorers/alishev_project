@@ -23,8 +23,6 @@
     <input id="year" type="number" th:field="*{year}"/>
     <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
 
-    <input type="hidden" th:field="*{personId}"/>
-
     <br/>
 
     <input type="submit" value="Update"/>

@@ -3,6 +3,8 @@ package com.example.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "person")
 public class Person {
@@ -20,6 +22,9 @@ public class Person {
     @NotNull(message = "Birth year must not be empty")
     @Min(value = 1900, message = "Birth year must be greater than or equal to 1900")
     private Integer birthYear;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 
     public Person() {
     }
@@ -52,5 +57,9 @@ public class Person {
 
     public void setBirthYear(Integer birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
 }

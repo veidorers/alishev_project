@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.Book;
+import com.example.model.Person;
 import com.example.repository.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -52,7 +54,9 @@ public class BooksService {
 
     @Transactional
     public void update(Book book) {
-        // id is set in view by thymeleaf. If Spring tries to save an entity with id, it updates it
+        var bookFromDB = bookRepository.findById(book.getId());
+        bookFromDB.ifPresent(bookFromDB1 -> book.setOwner(bookFromDB1.getOwner()));
+
         bookRepository.save(book);
     }
 
@@ -65,7 +69,7 @@ public class BooksService {
     public void returnBook(int id) {
         var bookFromDb = bookRepository.findById(id);
         bookFromDb.ifPresent(book1 -> {
-                book1.setPersonId(null);
+                book1.setOwner(null);
                 bookRepository.save(book1);
             }
         );
@@ -75,12 +79,16 @@ public class BooksService {
     public void reserve(Book book) {
         var bookFromDb = bookRepository.findById(book.getId());
         bookFromDb.ifPresent(book1 -> {
-            book1.setPersonId(book.getPersonId());
+            book1.setOwner(book.getOwner());
             bookRepository.save(book1);
         });
     }
 
-    public List<Book> findBooksByPersonId(int personId) {
-        return bookRepository.findBooksByPersonId(personId);
+    public List<Book> findByOwner(Person owner) {
+        return bookRepository.findByOwner(owner);
     }
+
+//    public List<Book> findBooksByPersonId(int personId) {
+//        return bookRepository.findBooksByPersonId(personId);
+//    }
 }
