@@ -32,9 +32,13 @@ public class BooksService {
             return bookRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
         }
         if((page == null || booksPerPage == null) && sortByYear) {
-            return bookRepository.findAllByOrderByYear();
+            return bookRepository.findByOrderByYear();
         }
         return bookRepository.findAll();
+    }
+
+    public List<Book> findByNameStartingWith(String nameStartingWith) {
+        return bookRepository.findByNameStartingWith(nameStartingWith);
     }
 
     public Book findById(int id) {

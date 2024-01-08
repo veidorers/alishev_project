@@ -7,12 +7,9 @@ import com.example.util.BookValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -100,5 +97,17 @@ public class BooksController {
     public String reserveBook(@ModelAttribute("book") Book book) {
         booksService.reserve(book);
         return "redirect:/books";
+    }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "books/searchPage";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam("bookNameStartingWith") String nameStartingWith,
+                         Model model) {
+        model.addAttribute("books", booksService.findByNameStartingWith(nameStartingWith));
+        return "/books/searchPage";
     }
 }

@@ -14,6 +14,7 @@ public interface BooksRepository extends JpaRepository<Book, Integer> {
 
     Page<Book> findAll(Pageable pageable);
 
-    List<Book> findAllByOrderByYear();
+    List<Book> findByOrderByYear();
 
+    List<Book> findByNameStartingWith(String nameStartingWith);
 }
