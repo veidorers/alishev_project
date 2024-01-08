@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 @Entity
 @Table(name = "book")
 public class Book {
@@ -26,6 +29,9 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person owner;
+
+    @Column(name = "time_borrowed")
+    private LocalDateTime timeBorrowed;
 
     public Book() {
     }
@@ -76,5 +82,20 @@ public class Book {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public boolean isBorrowExpired() {
+        if(LocalDateTime.now().isAfter(timeBorrowed.plus(10, ChronoUnit.DAYS))) {
+            return true;
+        }
+        return false;
+    }
+
+    public LocalDateTime getTimeBorrowed() {
+        return timeBorrowed;
+    }
+
+    public void setTimeBorrowed(LocalDateTime timeBorrowed) {
+        this.timeBorrowed = timeBorrowed;
     }
 }

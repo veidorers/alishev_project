@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +80,7 @@ public class BooksService {
     public void reserve(Book book) {
         var bookFromDb = bookRepository.findById(book.getId());
         bookFromDb.ifPresent(book1 -> {
+            book1.setTimeBorrowed(LocalDateTime.now());
             book1.setOwner(book.getOwner());
             bookRepository.save(book1);
         });
@@ -87,8 +89,4 @@ public class BooksService {
     public List<Book> findByOwner(Person owner) {
         return bookRepository.findByOwner(owner);
     }
-
-//    public List<Book> findBooksByPersonId(int personId) {
-//        return bookRepository.findBooksByPersonId(personId);
-//    }
 }

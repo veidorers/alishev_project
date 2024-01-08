@@ -9,5 +9,6 @@ CREATE TABLE Book(
     name VARCHAR(200) NOT NULL,
     author VARCHAR(300) NOT NULL,
     year INT NOT NULL,
-    person_id INT REFERENCES Person(id) ON DELETE SET NULL
+    person_id INT REFERENCES Person(id) ON DELETE SET NULL,
+    time_borrowed TIMESTAMP
 );
